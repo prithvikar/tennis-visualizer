@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+/* Custom Tennis Visualizer Styles */
+:root {
+  /* Color palette - Dark mode first */
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121a;
+  --bg-tertiary: #1a1a25;
+  --surface: #1e1e2a;
+  --surface-hover: #252533;
+  
+  /* Accent colors */
+  --player1: #00d4ff;          /* Cyan for Player 1 */
+  --player1-fade: #00d4ff40;   /* Faded for UE wins */
+  --player2: #ff3366;          /* Magenta for Player 2 */
+  --player2-fade: #ff336640;   /* Faded for UE wins */
+  
+  /* Outcome colors */
+  --winner: #22c55e;           /* Green - Winners */
+  --forced: #eab308;           /* Yellow - Forced Errors */
+  --unforced: #ef4444;         /* Red - Unforced Errors */
+  --ace: #a855f7;              /* Purple - Aces */
+  
+  /* UI colors */
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --border: #27272a;
+  --break-point: #ef4444;
+  --set-point: #f59e0b;
+  
+  /* Court colors */
+  --court-hard: #1e3a5f;
+  --court-clay: #c95a30;
+  --court-grass: #166534;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(30, 30, 42, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--player1), var(--player2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Momentum chart bar animations */
+.momentum-bar {
+  transition: all 0.15s ease-out;
+}
+
+.momentum-bar:hover {
+  filter: brightness(1.3);
+  transform: scaleY(1.1);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-hover);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 212, 255, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(0, 212, 255, 0.5); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+/* Court canvas */
+.court-surface {
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 2;
+}
+
+/* Break point indicator */
+.break-point-marker {
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+/* Loading shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-hover) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
